@@ -11,23 +11,23 @@ public class TicTacToe {
 
     public static void main(String[] args) {
 
-        // UC1
         initializeBoard();
         printBoard();
 
-        // UC2
         tossAndAssignSymbols();
         displayTossResult();
 
-        // UC3
         int slot = getUserSlot();
 
-        // UC4
         int row = getRowFromSlot(slot);
         int col = getColFromSlot(slot);
 
-        System.out.println("Row: " + row);
-        System.out.println("Column: " + col);
+        // UC5 validation
+        if (isValidMove(row, col)) {
+            System.out.println("Valid move!");
+        } else {
+            System.out.println("Invalid move!");
+        }
     }
 
     // UC1
@@ -87,12 +87,28 @@ public class TicTacToe {
         return slot;
     }
 
-    // 🔥 UC4
+    // UC4
     static int getRowFromSlot(int slot) {
         return (slot - 1) / 3;
     }
 
     static int getColFromSlot(int slot) {
         return (slot - 1) % 3;
+    }
+
+    // 🔥 UC5
+    static boolean isValidMove(int row, int col) {
+
+        // Check boundaries
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
+
+        // Check if cell is empty
+        if (board[row][col] != '-') {
+            return false;
+        }
+
+        return true;
     }
 }
