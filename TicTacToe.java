@@ -23,10 +23,10 @@ public class TicTacToe {
         // Print initial board
         printBoard();
 
-        // Game loop flag
+        // Game state flag
         boolean gameOver = false;
 
-        // UC8 + UC9 Continuous game loop
+        // UC8 Continuous game loop
         while (!gameOver) {
 
             // Human turn
@@ -48,24 +48,28 @@ public class TicTacToe {
                     // Print updated board
                     printBoard();
 
-                    // Check winning condition
+                    // UC9: Check win
                     if (hasWon(humanSymbol)) {
+
                         System.out.println("Human Wins!");
                         gameOver = true;
                     }
 
-                    // Check draw
-                    else if (isBoardFull()) {
+                    // UC10: Check draw
+                    else if (isDraw()) {
+
                         System.out.println("Game Draw!");
                         gameOver = true;
                     }
 
                     // Switch turn
                     else {
+
                         isHumanTurn = false;
                     }
 
                 } else {
+
                     System.out.println("Invalid move! Try again.");
                 }
 
@@ -81,20 +85,23 @@ public class TicTacToe {
                 // Print updated board
                 printBoard();
 
-                // Check winning condition
+                // UC9: Check win
                 if (hasWon(computerSymbol)) {
+
                     System.out.println("Computer Wins!");
                     gameOver = true;
                 }
 
-                // Check draw
-                else if (isBoardFull()) {
+                // UC10: Check draw
+                else if (isDraw()) {
+
                     System.out.println("Game Draw!");
                     gameOver = true;
                 }
 
                 // Switch turn
                 else {
+
                     isHumanTurn = true;
                 }
             }
@@ -240,23 +247,6 @@ public class TicTacToe {
         }
     }
 
-    // UC8: Check if board is full
-    static boolean isBoardFull() {
-
-        for (int row = 0; row < 3; row++) {
-
-            for (int col = 0; col < 3; col++) {
-
-                if (board[row][col] == '-') {
-
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
     // UC9: Check winning condition
     static boolean hasWon(char symbol) {
 
@@ -299,5 +289,24 @@ public class TicTacToe {
         }
 
         return false;
+    }
+
+    // 🔥 UC10: Detect draw condition
+    static boolean isDraw() {
+
+        for (int row = 0; row < 3; row++) {
+
+            for (int col = 0; col < 3; col++) {
+
+                // Empty cell exists → not draw
+                if (board[row][col] == '-') {
+
+                    return false;
+                }
+            }
+        }
+
+        // No empty cells
+        return true;
     }
 }
